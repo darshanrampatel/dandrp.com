@@ -1,6 +1,5 @@
 theme: minima
 github_username:  darshanrampatel
-rss: rss
 header_pages:
   - about.md
   - blog.md
