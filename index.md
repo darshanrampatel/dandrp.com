@@ -6,4 +6,4 @@ layout: default
 
 [Last.fm](https://www.last.fm/user/darshanpatel)
 
-[Books](/books)
+[Books I've read](/books)
