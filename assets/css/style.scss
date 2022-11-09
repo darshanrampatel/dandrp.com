@@ -1,7 +1,7 @@
 ---
 ---
 
-@import "jekyll-theme-minimalist";
+@import "{{ site.theme }}";
 
 .img-circle {
     -webkit-border-radius: 8px;
