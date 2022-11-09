@@ -1,6 +1,46 @@
 <div class="link-wrapper-mobile" id="link-wrapper-mobile">
+    <style scoped>
+        nobr>a {
+            color: var(--clr-h1-and-bold);
+            text-decoration: none;
+        }
+
+        nobr>a:hover,
+        nobr>a:focus,
+        nobr>a.link-58a6ff:hover>i,
+        nobr>a.link-58a6ff:focus>i,
+        nobr>a.link-f48024:hover>i,
+        nobr>a.link-f48024:focus>i,
+        nobr>a.link-d51007:hover>i,
+        nobr>a.link-d51007:focus>i {
+            color: var(--clr-h1-and-bold);
+        }
+
+        nobr>a.link-58a6ff>i,
+        nobr>a.link-58a6ff>i,
+        nobr>a.link-58a6ff:hover,
+        nobr>a.link-58a6ff:focus {
+            color: #58a6ff;
+        }
+
+        nobr>a.link-f48024>i,
+        nobr>a.link-f48024>i,
+        nobr>a.link-f48024:hover,
+        nobr>a.link-f48024:focus {
+            color: #f48024;
+        }
+
+        nobr>a.link-d51007>i,
+        nobr>a.link-d51007>i,
+        nobr>a.link-d51007:hover,
+        nobr>a.link-d51007:focus {
+            color: #d51007;
+        }
+
+    </style>
     {%- for platform in site.sidebar %}
-    <nobr><a href="{{ platform.link }}" rel="me" target="_blank">{{ platform.icon }}&nbsp;{{ platform.name }}</a>
+    <nobr><a href="{{ platform.link }}" rel="me" target="_blank" class="link-{{ platform.colour }}">{{ platform.icon
+            }}&nbsp;{{ platform.name }}</a>
         {%- unless forloop.last %} / {% endunless %}</nobr>
     {%- endfor %}
 </div>

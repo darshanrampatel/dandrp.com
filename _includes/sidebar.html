@@ -6,14 +6,42 @@
         }
 
         ul.link a:hover,
-        a:focus {
-            color: var(--clr-a-text-hvr);
+        ul.link a:focus,
+        ul.link a.link-58a6ff:hover>i,
+        ul.link a.link-58a6ff:focus>i,
+        ul.link a.link-f48024:hover>i,
+        ul.link a.link-f48024:focus>i,
+        ul.link a.link-d51007:hover>i,
+        ul.link a.link-d51007:focus>i {
+            color: var(--clr-h1-and-bold);
+        }
+
+        ul.link a.link-58a6ff>i,
+        ul.link a.link-58a6ff>i,
+        ul.link a.link-58a6ff:hover,
+        ul.link a.link-58a6ff:focus {
+            color: #58a6ff;
+        }
+
+        ul.link a.link-f48024>i,
+        ul.link a.link-f48024>i,
+        ul.link a.link-f48024:hover,
+        ul.link a.link-f48024:focus {
+            color: #f48024;
+        }
+
+        ul.link a.link-d51007>i,
+        ul.link a.link-d51007>i,
+        ul.link a.link-d51007:hover,
+        ul.link a.link-d51007:focus {
+            color: #d51007;
         }
 
     </style>
     <ul class="link">
         {%- for platform in site.sidebar %}
-        <li><a href="{{ platform.link }}" rel="me" target="_blank">{{ platform.icon }}&nbsp;{{ platform.name }}</a></li>
+        <li><a href="{{ platform.link }}" rel="me" target="_blank" class="link-{{ platform.colour }}">{{ platform.icon
+                }}&nbsp;{{ platform.name }}</a></li>
         {%- endfor %}
     </ul>
 </div>
