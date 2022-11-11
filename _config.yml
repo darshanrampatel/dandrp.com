@@ -2,7 +2,7 @@ title: Darshan
 
 logo: /assets/img/logo.jpg
 # email: TODO
-blank_title: true
+blank_title: false
 favicon: true
 description: ""
 show_downloads: false
