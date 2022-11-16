@@ -3395,6 +3395,9 @@ books: true
                 element.classList.add("label-hover");
             }
         });
+
+        labelNonfiction.classList.add("label-hover");
+        labelStarred.classList.add("label-hover");
     }
 
     function labelHoverNonfiction(e) {
@@ -3410,6 +3413,11 @@ books: true
         // So this is a HACK to dim those as well
         const starred = document.querySelectorAll('rect[style="fill: #ff0073;"]');
         starred.forEach((element) => element.classList.add("label-hover"));
+        const stars = document.querySelectorAll('text[fill="white"][font-size="x-small"]');
+        stars.forEach((element) => element.classList.add("label-hover"));
+
+        labelFiction.classList.add("label-hover");
+        labelStarred.classList.add("label-hover");
     }
 
     function labelHoverStarred(e) {
@@ -3420,6 +3428,9 @@ books: true
                 element.classList.add("label-hover");
             }
         });
+
+        labelFiction.classList.add("label-hover");
+        labelNonfiction.classList.add("label-hover");
     }
 
     function labelHoverLeave(e) {
@@ -3430,6 +3441,12 @@ books: true
         // Find starred books properly
         const starred = document.querySelectorAll('rect[style="fill: #ff0073;"]');
         starred.forEach((element) => element.classList.remove("label-hover"));
+        const stars = document.querySelectorAll('text[fill="white"][font-size="x-small"]');
+        stars.forEach((element) => element.classList.remove("label-hover"));
+
+        labelFiction.classList.remove("label-hover");
+        labelNonfiction.classList.remove("label-hover");
+        labelStarred.classList.remove("label-hover");
     }
 </script>
 
