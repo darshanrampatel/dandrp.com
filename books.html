@@ -49,17 +49,18 @@ books: true
 </style>
 <h2>{{ page.title }}</h2>
 <div style="display: flex; flex-direction: row;">
-    <div><svg id="label-fiction" width="100" height="25" style="padding-right: 0.5rem">
+    <div><!--REPLACE START-->
+        <svg id="label-Fiction" width="100" height="25" style="padding-right: 0.5rem">
             <rect width="100" height="25" style="fill: #FF8C00; stroke: #7f4600;"></rect>
             <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white"
                 style="cursor: default;">Fiction</text>
         </svg>
-        <svg id="label-nonfiction" width="100" height="25" style="padding-right: 0.5rem">
+        <svg id="label-Nonfiction" width="100" height="25" style="padding-right: 0.5rem">
             <rect width="100" height="25" style="fill: #0073ff; stroke: #00397f;"></rect>
             <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white"
                 style="cursor: default;">Nonfiction</text>
         </svg>
-        <svg id="label-starred" width="120" height="25" style="padding-right: 0.5rem">
+        <svg id="label-Starred" width="120" height="25" style="padding-right: 0.5rem">
             <polygon points="20,0 100,0 20,25" style="fill: #FF8C00; stroke: #7f4600;" />
             <polygon points="100,0 20,25 100,25" style="fill: #0073ff; stroke: #00397f;" />
             <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white"
@@ -3323,7 +3324,7 @@ books: true
                         style="fill: #FF8C00; stroke: #7f4600;"></rect>
                 </g>
             </svg>
-        </div>
+        </div><!--REPLACE END-->
     </div>
 </div>
 <div id="tooltip" class="tooltip off"></div>
@@ -3383,15 +3384,15 @@ books: true
             element.addEventListener('mousemove', axisLabelTooltip);
         });
 
-    const labelFiction = document.querySelector('#label-fiction');
+    const labelFiction = document.querySelector('#label-Fiction');
     labelFiction.addEventListener('mouseenter', labelHoverFiction);
     labelFiction.addEventListener('mouseleave', labelHoverLeave);
 
-    const labelNonfiction = document.querySelector('#label-nonfiction');
+    const labelNonfiction = document.querySelector('#label-Nonfiction');
     labelNonfiction.addEventListener('mouseenter', labelHoverNonfiction);
     labelNonfiction.addEventListener('mouseleave', labelHoverLeave);
 
-    const labelStarred = document.querySelector('#label-starred');
+    const labelStarred = document.querySelector('#label-Starred');
     labelStarred.addEventListener('mouseenter', labelHoverStarred);
     labelStarred.addEventListener('mouseleave', labelHoverLeave);
 
