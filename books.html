@@ -3398,9 +3398,8 @@ books: true
 
     function labelHoverFiction(e) {
         const books = document.querySelectorAll("rect.chart-book");
-        // TODO Filter based on right type rather than on colour
         books.forEach((element) => {
-            if (element.dataset.fillcolour != "#FF8C00") {
+            if (element.dataset.type != "Fiction") {
                 element.classList.add("label-hover");
             }
         });
@@ -3411,9 +3410,8 @@ books: true
 
     function labelHoverNonfiction(e) {
         const books = document.querySelectorAll("rect.chart-book");
-        // TODO Filter based on right type rather than on colour
         books.forEach((element) => {
-            if (element.dataset.fillcolour != "#0073ff") {
+            if (element.dataset.type != "Nonfiction") {
                 element.classList.add("label-hover");
             }
         });
@@ -3431,7 +3429,6 @@ books: true
 
     function labelHoverStarred(e) {
         const books = document.querySelectorAll("rect.chart-book");
-        // TODO Filter based on right type rather than on ratinglabel
         books.forEach((element) => {
             if (element.dataset.ratinglabel == "") {
                 element.classList.add("label-hover");
@@ -3444,7 +3441,6 @@ books: true
 
     function labelHoverLeave(e) {
         const books = document.querySelectorAll("rect.chart-book");
-        // Filter based on right type
         books.forEach((element) => element.classList.remove("label-hover"));
 
         // Find starred books properly
