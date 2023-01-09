@@ -4202,26 +4202,35 @@ books: true
             element.addEventListener('mousemove', axisLabelTooltip);
         });
 
-    const labelFiction = document.querySelector('#label-Fiction');
-    labelFiction.addEventListener('mouseenter', labelHoverFiction);
-    labelFiction.addEventListener('mouseleave', labelHoverLeave);
-    labelFiction.addEventListener('mousemove', filterLabelTooltip);
-
-    const labelNonfiction = document.querySelector('#label-Nonfiction');
-    labelNonfiction.addEventListener('mouseenter', labelHoverNonfiction);
-    labelNonfiction.addEventListener('mouseleave', labelHoverLeave);
-    labelNonfiction.addEventListener('mousemove', filterLabelTooltip);
-
-    const labelStarred = document.querySelector('#label-Starred');
-    labelStarred.addEventListener('mouseenter', labelHoverStarred);
-    labelStarred.addEventListener('mouseleave', labelHoverLeave);
-    labelStarred.addEventListener('mousemove', filterLabelTooltip);
-
     const tooltipFilterLabel = document.querySelector('#tooltipFilterLabel');
-    const labelReadRecentlyAfterPublishing = document.querySelector('#label-ReadRecentlyAfterPublishing');
-    labelReadRecentlyAfterPublishing.addEventListener('mouseenter', labelHoverReadRecentlyAfterPublishing);
-    labelReadRecentlyAfterPublishing.addEventListener('mouseleave', labelHoverLeave);
-    labelReadRecentlyAfterPublishing.addEventListener('mousemove', filterLabelTooltip);
+
+    document.querySelectorAll('#label-Fiction')
+        .forEach((labelFiction) => {
+            labelFiction.addEventListener('mouseenter', labelHoverFiction);
+            labelFiction.addEventListener('mouseleave', labelHoverLeave);
+            labelFiction.addEventListener('mousemove', filterLabelTooltip);
+        })
+
+    document.querySelectorAll('#label-Nonfiction')
+        .forEach((labelNonfiction) => {
+            labelNonfiction.addEventListener('mouseenter', labelHoverNonfiction);
+            labelNonfiction.addEventListener('mouseleave', labelHoverLeave);
+            labelNonfiction.addEventListener('mousemove', filterLabelTooltip);
+        });
+
+    document.querySelectorAll('#label-Starred')
+        .forEach((labelStarred) => {
+            labelStarred.addEventListener('mouseenter', labelHoverStarred);
+            labelStarred.addEventListener('mouseleave', labelHoverLeave);
+            labelStarred.addEventListener('mousemove', filterLabelTooltip);
+        });
+
+    document.querySelectorAll('#label-ReadRecentlyAfterPublishing')
+        .forEach((labelReadRecentlyAfterPublishing) => {
+            labelReadRecentlyAfterPublishing.addEventListener('mouseenter', labelHoverReadRecentlyAfterPublishing);
+            labelReadRecentlyAfterPublishing.addEventListener('mouseleave', labelHoverLeave);
+            labelReadRecentlyAfterPublishing.addEventListener('mousemove', filterLabelTooltip);
+        });
 
     function labelHoverFiction(e) {
         const data = e.target.dataset;
@@ -4236,9 +4245,18 @@ books: true
             }
         });
 
-        labelNonfiction.classList.add("label-hover");
-        labelStarred.classList.add("label-hover");
-        labelReadRecentlyAfterPublishing.classList.add("label-hover");
+        document.querySelectorAll('#label-Nonfiction')
+            .forEach((labelNonfiction) => {
+                labelNonfiction.classList.add("label-hover");
+            })
+        document.querySelectorAll('#label-Starred')
+            .forEach((labelStarred) => {
+                labelStarred.classList.add("label-hover");
+            });
+        document.querySelectorAll('#label-ReadRecentlyAfterPublishing')
+            .forEach((labelReadRecentlyAfterPublishing) => {
+                labelReadRecentlyAfterPublishing.classList.add("label-hover");
+            });
     }
 
     function labelHoverNonfiction(e) {
@@ -4261,9 +4279,18 @@ books: true
         const stars = document.querySelectorAll('text[fill="white"][font-size="x-small"]');
         stars.forEach((element) => element.classList.add("label-hover"));
 
-        labelFiction.classList.add("label-hover");
-        labelStarred.classList.add("label-hover");
-        labelReadRecentlyAfterPublishing.classList.add("label-hover");
+        document.querySelectorAll('#label-Fiction')
+            .forEach((labelFiction) => {
+                labelFiction.classList.add("label-hover");
+            })
+        document.querySelectorAll('#label-Starred')
+            .forEach((labelStarred) => {
+                labelStarred.classList.add("label-hover");
+            });
+        document.querySelectorAll('#label-ReadRecentlyAfterPublishing')
+            .forEach((labelReadRecentlyAfterPublishing) => {
+                labelReadRecentlyAfterPublishing.classList.add("label-hover");
+            });
     }
 
     function labelHoverStarred(e) {
@@ -4279,9 +4306,18 @@ books: true
             }
         });
 
-        labelFiction.classList.add("label-hover");
-        labelNonfiction.classList.add("label-hover");
-        labelReadRecentlyAfterPublishing.classList.add("label-hover");
+        document.querySelectorAll('#label-Fiction')
+            .forEach((labelFiction) => {
+                labelFiction.classList.add("label-hover");
+            })
+        document.querySelectorAll('#label-Nonfiction')
+            .forEach((labelNonfiction) => {
+                labelNonfiction.classList.add("label-hover");
+            })
+        document.querySelectorAll('#label-ReadRecentlyAfterPublishing')
+            .forEach((labelReadRecentlyAfterPublishing) => {
+                labelReadRecentlyAfterPublishing.classList.add("label-hover");
+            });
     }
 
     function filterLabelTooltip(e) {
@@ -4309,10 +4345,18 @@ books: true
         const stars = document.querySelectorAll('text[fill="white"][font-size="x-small"]');
         stars.forEach((element) => element.classList.add("label-hover"));
 
-        labelFiction.classList.add("label-hover");
-        labelNonfiction.classList.add("label-hover");
-        labelStarred.classList.add("label-hover");
-
+        document.querySelectorAll('#label-Fiction')
+            .forEach((labelFiction) => {
+                labelFiction.classList.add("label-hover");
+            })
+        document.querySelectorAll('#label-Nonfiction')
+            .forEach((labelNonfiction) => {
+                labelNonfiction.classList.add("label-hover");
+            })
+        document.querySelectorAll('#label-Starred')
+            .forEach((labelStarred) => {
+                labelStarred.classList.add("label-hover");
+            });
     }
 
     function labelHoverLeave(e) {
@@ -4328,10 +4372,22 @@ books: true
         const stars = document.querySelectorAll('text[fill="white"][font-size="x-small"]');
         stars.forEach((element) => element.classList.remove("label-hover"));
 
-        labelFiction.classList.remove("label-hover");
-        labelNonfiction.classList.remove("label-hover");
-        labelStarred.classList.remove("label-hover");
-        labelReadRecentlyAfterPublishing.classList.remove("label-hover");
+        document.querySelectorAll('#label-Fiction')
+            .forEach((labelFiction) => {
+                labelFiction.classList.remove("label-hover");
+            })
+        document.querySelectorAll('#label-Nonfiction')
+            .forEach((labelNonfiction) => {
+                labelNonfiction.classList.remove("label-hover");
+            })
+        document.querySelectorAll('#label-Starred')
+            .forEach((labelStarred) => {
+                labelStarred.classList.remove("label-hover");
+            });
+        document.querySelectorAll('#label-ReadRecentlyAfterPublishing')
+            .forEach((labelReadRecentlyAfterPublishing) => {
+                labelReadRecentlyAfterPublishing.classList.remove("label-hover");
+            });
     }
 </script>
 
