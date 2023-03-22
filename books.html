@@ -125,7 +125,8 @@ books: true
                         data-TimesReadLabel="" data-type="Fiction" data-ReadRecentlyAfterPublishing="True"
                         style="fill: #FF8C00; stroke: #7f4600;"></rect><text class="axis-label"
                         transform="translate(25, 50) rotate(-90)" style="fill: #FF8C00;"
-                        data-bookCount="7 books, 2,312 pages" data-tooltip="(7 Fiction)">2023</text>
+                        data-bookCount="7 books, 2,312 pages" data-tooltip="(7 Fiction)"
+                        data-projected="Projected: 32 books, 10,418 pages">2023</text>
                     <rect x="40" y="126" width="434" height="2" style="fill: #8B4513;"></rect>
                     <rect x="456" y="89" width="8" height="37" class="chart-book" data-author="Malorie Blackman"
                         data-title="Just Sayin'" data-published="2022" data-ratingLabel="" data-fillColour="#0073ff"
@@ -4300,7 +4301,8 @@ books: true
 
     function axisLabelTooltipOn(e) {
         const data = e.target.dataset;
-        axisLabel.innerHTML = `<p style="color: black;">${data.bookcount}<br><em>${data.tooltip}</em></p>`
+        const projected = data.projected ? `<br>${data.projected}` : ``;
+        axisLabel.innerHTML = `<p style="color: black;">${data.bookcount}<br><em>${data.tooltip}</em>${projected}</p>`
         axisLabel.classList.add('on');
         axisLabel.classList.remove('off');
     }
