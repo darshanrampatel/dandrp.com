@@ -4366,6 +4366,9 @@ books: true
             labelReReads.addEventListener('mousemove', filterLabelTooltip);
         });
 
+    const undatedBooksLabel = Array.from(document.querySelectorAll('text[class="axis-label"]'))
+        .find(el => el.textContent.startsWith("Undated"));
+
     function labelHoverFiction(e) {
         const data = e.target.dataset;
         tooltipFilterLabel.innerHTML = `<p style="color: black;">${data.tooltip}</p>`
@@ -4532,6 +4535,8 @@ books: true
             .forEach((labelReReads) => {
                 labelReReads.classList.add("label-hover");
             });
+
+        undatedBooksLabel.classList.add("label-hover");
     }
 
     function labelHoverlabelReReads(e) {
@@ -4611,6 +4616,8 @@ books: true
             .forEach((labelReReads) => {
                 labelReReads.classList.remove("label-hover");
             });
+
+        undatedBooksLabel.classList.remove("label-hover");
     }
 </script>
 
