@@ -19,10 +19,6 @@ sidebar:
     icon: <i class="fa-brands fa-github"></i>
     colour: "58a6ff"
     link: https://github.com/darshanrampatel
-  - name: Stack Overflow
-    icon: <i class="fa-brands fa-stack-overflow"></i>
-    colour: "f48024"
-    link: https://stackoverflow.com/users/5024969/darshan
   - name: Last.fm
     icon: <i class="fa-brands fa-lastfm"></i>
     colour: "d51007"
