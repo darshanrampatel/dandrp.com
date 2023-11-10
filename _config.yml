@@ -23,6 +23,11 @@ sidebar:
     icon: <i class="fa-brands fa-lastfm"></i>
     colour: "d51007"
     link: https://www.last.fm/user/darshanpatel
+  - name: LinkedIn
+    icon: <i class="fa-brands fa-linkedin"></i>
+    colour: "0077b5"
+    link: https://www.linkedin.com/in/darshanrampatel
+
 
 # https://github.com/github/pages-gem/issues/399#issuecomment-301827749
 # When running locally, we run into the following error —
