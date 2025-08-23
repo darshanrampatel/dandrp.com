@@ -23,6 +23,21 @@ books: true
         cursor: default;
     }
 
+    /* Add touch feedback for mobile */
+    @media (hover: none) and (pointer: coarse) {
+        .chart-book, .axis-label {
+            transition: opacity 0.2s ease;
+        }
+        
+        .chart-book:active, .axis-label:active {
+            opacity: 0.7;
+        }
+        
+        svg[id^="label-"]:active {
+            opacity: 0.8;
+        }
+    }
+
     .tooltip {
         position: absolute;
         pointer-events: none;
@@ -46,10 +61,112 @@ books: true
         opacity: 25%;
     }
 
+    /* Mobile responsive styles */
+    .books-container {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .books-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .shelf {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Mobile styles for screens under 960px */
+    @media screen and (max-width: 960px) {
+        .books-container {
+            flex-direction: column;
+        }
+        
+        .books-legend {
+            justify-content: center;
+        }
+        
+        .reading-shelf {
+            overflow-x: auto;
+            padding-bottom: 20px;
+        }
+        
+        .shelf {
+            min-width: 600px; /* Minimum width to maintain readability */
+        }
+    }
+
+    /* Mobile styles for smaller screens under 720px */
+    @media screen and (max-width: 720px) {
+        .books-legend svg {
+            width: 80px !important;
+            font-size: 11px;
+        }
+        
+        .books-legend svg text {
+            font-size: 11px;
+        }
+        
+        .shelf {
+            min-width: 500px;
+        }
+        
+        .tooltip {
+            font-size: 11px;
+            max-width: 250px;
+            word-wrap: break-word;
+        }
+    }
+
+    /* Mobile styles for very small screens under 480px */
+    @media screen and (max-width: 480px) {
+        .books-legend {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .books-legend svg {
+            width: 200px !important;
+            margin-bottom: 0.5rem;
+        }
+        
+        .books-legend svg[width="250"] {
+            width: 200px !important;
+        }
+        
+        .shelf {
+            min-width: 400px;
+        }
+        
+        .tooltip {
+            font-size: 10px;
+            max-width: 200px;
+            left: 10px !important;
+            right: auto !important;
+        }
+        
+        .axis-label {
+            font-size: 16px;
+        }
+        
+        .reading-shelf {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 1rem;
+        }
+    }
+
 </style>
 <h2>{{ page.title }}</h2>
-<div style="display: flex; flex-direction: row;">
+<div class="books-container">
     <div><!--REPLACE START-->
+        <div class="books-legend">
         <svg id="label-Fiction" width="100" height="25" style="padding-right: 0.5rem"
             data-tooltip="733 books, 261,328 pages">
             <rect width="100" height="25" style="fill: #FF8C00; stroke: #7f4600;"></rect>
@@ -85,8 +202,9 @@ books: true
             <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white"
                 style="cursor: default;">Read Recently After Publishing</text>
         </svg>
+        </div>
         <div class="reading-shelf">
-            <svg class="shelf" width="1000" height="1200" view-box="0 0 1000 1200">
+            <svg class="shelf" width="1000" height="1200" viewBox="0 0 1000 1200">
                 <g transform="translate(0, 25)">
                     <rect x="40" y="50" width="355" height="2" style="fill: #8B4513;"></rect>
                     <rect x="380" y="17" width="5" height="33" class="chart-book" data-author="Sayaka Murata"
@@ -4892,8 +5010,19 @@ books: true
     const tip = document.querySelector('#tooltip');
 
     function tooltip(e) {
-        tip.style.left = `${e.pageX + 5}px`;
-        tip.style.top = `${e.pageY + 5}px`;
+        // Improve positioning for mobile devices
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            tip.style.left = '10px';
+            tip.style.right = '10px';
+            tip.style.top = `${e.pageY + 10}px`;
+            tip.style.width = 'auto';
+        } else {
+            tip.style.left = `${e.pageX + 5}px`;
+            tip.style.top = `${e.pageY + 5}px`;
+            tip.style.right = 'auto';
+            tip.style.width = 'auto';
+        }
         const data = e.target.dataset;
         tip.style.borderColor = `${data.fillcolour}`;
     }
@@ -4908,20 +5037,55 @@ books: true
         tip.innerHTML = `<p style="color: black;"><strong style="color: ${data.bordercolour}">${data.title}</strong><span style="color: ${data.ratingcolour};">${data.ratinglabel}</span><br>${data.author} (${data.published})<br><em>${data.timesreadlabel}</em></p>`
         tip.classList.add('on');
         tip.classList.remove('off');
+        hideTooltipAfterDelay();
+    }
+
+    // Detect if device supports touch
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    let tooltipTimeout;
+
+    function hideTooltipAfterDelay() {
+        if (isTouchDevice) {
+            clearTimeout(tooltipTimeout);
+            tooltipTimeout = setTimeout(() => {
+                tooltipOff();
+                axisLabelTooltipOff();
+                labelHoverLeave();
+            }, 3000); // Hide after 3 seconds on mobile
+        }
     }
 
     document.querySelectorAll('.chart-book')
         .forEach((element) => {
-            element.addEventListener('mouseenter', tooltipOn);
-            element.addEventListener('mouseleave', tooltipOff);
-            element.addEventListener('mousemove', tooltip);
+            if (isTouchDevice) {
+                // For touch devices, use tap events
+                element.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    tooltipOn(e.touches[0]);
+                    tooltip(e.touches[0]);
+                }, { passive: false });
+                element.addEventListener('touchend', tooltipOff);
+            } else {
+                // For desktop, use mouse events
+                element.addEventListener('mouseenter', tooltipOn);
+                element.addEventListener('mouseleave', tooltipOff);
+                element.addEventListener('mousemove', tooltip);
+            }
         });
 
     const axisLabel = document.querySelector('#tooltipAxisLabel');
 
     function axisLabelTooltip(e) {
-        axisLabel.style.left = `${e.pageX + 5}px`;
-        axisLabel.style.top = `${e.pageY + 5}px`;
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            axisLabel.style.left = '10px';
+            axisLabel.style.right = '10px';
+            axisLabel.style.top = `${e.pageY + 10}px`;
+        } else {
+            axisLabel.style.left = `${e.pageX + 5}px`;
+            axisLabel.style.top = `${e.pageY + 5}px`;
+            axisLabel.style.right = 'auto';
+        }
     }
 
     function axisLabelTooltipOff(e) {
@@ -4939,47 +5103,46 @@ books: true
 
     document.querySelectorAll('.axis-label')
         .forEach((element) => {
-            element.addEventListener('mouseenter', axisLabelTooltipOn);
-            element.addEventListener('mouseleave', axisLabelTooltipOff);
-            element.addEventListener('mousemove', axisLabelTooltip);
+            if (isTouchDevice) {
+                element.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    axisLabelTooltipOn(e.touches[0]);
+                    axisLabelTooltip(e.touches[0]);
+                }, { passive: false });
+                element.addEventListener('touchend', axisLabelTooltipOff);
+            } else {
+                element.addEventListener('mouseenter', axisLabelTooltipOn);
+                element.addEventListener('mouseleave', axisLabelTooltipOff);
+                element.addEventListener('mousemove', axisLabelTooltip);
+            }
         });
 
     const tooltipFilterLabel = document.querySelector('#tooltipFilterLabel');
 
-    document.querySelectorAll('#label-Fiction')
-        .forEach((labelFiction) => {
-            labelFiction.addEventListener('mouseenter', labelHoverFiction);
-            labelFiction.addEventListener('mouseleave', labelHoverLeave);
-            labelFiction.addEventListener('mousemove', filterLabelTooltip);
-        })
+    // Add mobile support for filter labels
+    function addFilterLabelListeners(selector, hoverFunction) {
+        document.querySelectorAll(selector)
+            .forEach((element) => {
+                if (isTouchDevice) {
+                    element.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                        hoverFunction(e.touches[0]);
+                        filterLabelTooltip(e.touches[0]);
+                    }, { passive: false });
+                    element.addEventListener('touchend', labelHoverLeave);
+                } else {
+                    element.addEventListener('mouseenter', hoverFunction);
+                    element.addEventListener('mouseleave', labelHoverLeave);
+                    element.addEventListener('mousemove', filterLabelTooltip);
+                }
+            });
+    }
 
-    document.querySelectorAll('#label-Nonfiction')
-        .forEach((labelNonfiction) => {
-            labelNonfiction.addEventListener('mouseenter', labelHoverNonfiction);
-            labelNonfiction.addEventListener('mouseleave', labelHoverLeave);
-            labelNonfiction.addEventListener('mousemove', filterLabelTooltip);
-        });
-
-    document.querySelectorAll('#label-Starred')
-        .forEach((labelStarred) => {
-            labelStarred.addEventListener('mouseenter', labelHoverStarred);
-            labelStarred.addEventListener('mouseleave', labelHoverLeave);
-            labelStarred.addEventListener('mousemove', filterLabelTooltip);
-        });
-
-    document.querySelectorAll('#label-ReadRecentlyAfterPublishing')
-        .forEach((labelReadRecentlyAfterPublishing) => {
-            labelReadRecentlyAfterPublishing.addEventListener('mouseenter', labelHoverReadRecentlyAfterPublishing);
-            labelReadRecentlyAfterPublishing.addEventListener('mouseleave', labelHoverLeave);
-            labelReadRecentlyAfterPublishing.addEventListener('mousemove', filterLabelTooltip);
-        });
-
-    document.querySelectorAll('#label-ReReads')
-        .forEach((labelReReads) => {
-            labelReReads.addEventListener('mouseenter', labelHoverlabelReReads);
-            labelReReads.addEventListener('mouseleave', labelHoverLeave);
-            labelReReads.addEventListener('mousemove', filterLabelTooltip);
-        });
+    addFilterLabelListeners('#label-Fiction', labelHoverFiction);
+    addFilterLabelListeners('#label-Nonfiction', labelHoverNonfiction);
+    addFilterLabelListeners('#label-Starred', labelHoverStarred);
+    addFilterLabelListeners('#label-ReadRecentlyAfterPublishing', labelHoverReadRecentlyAfterPublishing);
+    addFilterLabelListeners('#label-ReReads', labelHoverlabelReReads);
 
     const axisLabels = document.querySelectorAll("text[id^='axis-label-']");
     function labelHoverFiction(e) {
@@ -5121,8 +5284,16 @@ books: true
     }
 
     function filterLabelTooltip(e) {
-        tooltipFilterLabel.style.left = `${e.pageX + 5}px`;
-        tooltipFilterLabel.style.top = `${e.pageY + 5}px`;
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            tooltipFilterLabel.style.left = '10px';
+            tooltipFilterLabel.style.right = '10px';
+            tooltipFilterLabel.style.top = `${e.pageY + 10}px`;
+        } else {
+            tooltipFilterLabel.style.left = `${e.pageX + 5}px`;
+            tooltipFilterLabel.style.top = `${e.pageY + 5}px`;
+            tooltipFilterLabel.style.right = 'auto';
+        }
     }
 
     function labelHoverReadRecentlyAfterPublishing(e) {
