@@ -6,7 +6,7 @@ blank_title: false
 favicon: true
 description: ""
 show_downloads: false
-remote_theme: BDHU/minimalist
+remote_theme: BDHU/minimalist@f19d6a6ef015ba93c5aee9ce80339e4959b0ffa7
 color-scheme: dark
 plugins:
   # - jekyll-sitemap
